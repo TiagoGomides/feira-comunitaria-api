@@ -1,10 +1,10 @@
-const express = require('express');
-const {CreateUserController} = require('../controllers/User/CreateUserController');
+const express = require("express");
+
+const userRoutes = require("./user.routes");
 
 const router = express.Router();
 
-
-
-router.post('/users',new CreateUserController().handle)
+router.use(userRoutes); // carrega tudo que tiver no userRoutes
 
 module.exports = router;
+

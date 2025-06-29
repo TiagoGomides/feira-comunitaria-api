@@ -2,7 +2,7 @@ const prismaClient = require("../../prisma/index.js");
 const { hash } = require("bcryptjs");
 
 class CreateUserService {
-  async execute({ fullName, email, password }) {
+  async execute({ fullName, email, password, reputation = 0 }) {
     if (!email) {
       throw new Error("Insira um email");
     }
@@ -25,6 +25,7 @@ class CreateUserService {
       data: {
         fullName,
         email,
+        reputation,
         password: passwordHash,
       },
       select: {
@@ -39,11 +40,3 @@ class CreateUserService {
 }
 
 module.exports = { CreateUserService };
-
-/*id           String         @id @default(uuid())
-  fullName     String
-  email        String         @unique
-  password     String
-  reputation   Int            @default(0)
-  imageUrl     String?
-  createdAt*/
