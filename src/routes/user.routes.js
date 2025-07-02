@@ -10,16 +10,22 @@ const {
 const {
   DetailUserController,
 } = require("../controllers/User/DetailUsercontroller");
+const {UpdateUserController} = require("../controllers/User/UpdateUserController")
+
+
+
 
 const router = express.Router();
 const createUserController = new CreateUserController();
+const updateUserController = new UpdateUserController();
 
 router.post("/users", upload.single("image"), (req, res) => {
   return createUserController.handle(req, res);
 });
-
 router.get("/me", isAuthenticated, new DetailUserController().handle);
-
 router.post("/login", new AuthUserController().handle);
+router.put("/users", isAuthenticated, upload.single("image"), (req, res) => {
+  return updateUserController.handle(req, res);
+});
 
 module.exports = router;
